@@ -2,12 +2,13 @@
 
 using namespace cv;
 
-void Check(){
+int Check(){
 #if CUDA == ON && CPU == OFF
     using namespace cv::cuda;
     cuda::printCudaDeviceInfo(cuda::getDevice());
     int count = getCudaEnabledDeviceCount();
     cout << "Supporting " << count << " CUDA cores" << endl;
+    return count;
 #endif
 }
 
@@ -164,7 +165,11 @@ void generate_dataset(Mat &trainData, Mat &labels, string positive_dir, string n
 }
 
 // 运行方法
-vector<Point_t> getBoard(Mat img, AimColor color){
+vector<Point_t> getBoard(Mat img, AimColor color
+#if ONNX == ON && TensorRT == OFF
+, const string& onnxPath
+#endif
+){
 #if SVM_Mode == ON && DNN_Mode == OFF
     Ptr<cv::ml::SVM> svm;
     // 读取SVM模型
@@ -185,7 +190,29 @@ vector<Point_t> getBoard(Mat img, AimColor color){
     }
 
     return result;
+#elif CUDA == ON && CPU == OFF
+    // 判断是ONNX还是TensorRT, 取决于配置文件
+    #if ONNX == ON && TensorRT == OFF
+        // ONNX模型
+        cv::dnn::Net net = cv::dnn::readNetFromONNX(onnxPath);
+        net.setInput(img);
+        std::vector<cv::String> output_layer_names = net.getUnconnectedOutLayersNames();
+        Mat output;
+        net.forward(output, output_layer_names);
+
+    #elif ONNX == OFF && TensorRT == ON
+        // TensorRT模型
+        Logger logger;
+        logger.out("TensorRT模型");
+        return NULL;
+    #else
+        Logger logger;
+        logger.out("Error: CUDA模型未开启");
+        return NULL;
+    #endif
 #else
+    Logger logger;
+    logger.out("Error: 模式未开启");
     return NULL;
 #endif
 }

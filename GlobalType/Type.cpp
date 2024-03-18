@@ -17,10 +17,10 @@ void Logger::out(std::string msg) {
     string names = name;
     if (this->mode == Save){
         fstream f;
-        f.open(this->file + names + ".log", ios::out);
-        f << msg << endl;
-    }else{
+        f.open(this->file + names + ".log", ios::out | ios::app);
+        f << "["<< names << "]: " << msg << endl;
         cout << "["<< names << "]: " << msg << endl;
-    }
+    }else cout << "["<< names << "]: " << msg << endl;
+
 }
 

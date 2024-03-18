@@ -13,7 +13,7 @@ using namespace cv;
 #define rotate_angle 80
 #define horizontal_angle 10
 
-void Check();
+int Check();
 
 
 void NMS(vector<Rect> &srcRect, float thresh);
