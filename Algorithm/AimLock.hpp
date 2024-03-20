@@ -15,11 +15,14 @@ using namespace cv;
 
 int Check();
 
-
 void NMS(vector<Rect> &srcRect, float thresh);
 
 void TrainSVM(string path);
 
-vector<Point_t> getBoard(Mat img,AimColor color);
+vector<Point_t> getBoard(Mat img, AimColor color
+#if ONNX == ON && TensorRT == OFF
+        , const string& onnxPath
+#endif
+);
 
 #endif
