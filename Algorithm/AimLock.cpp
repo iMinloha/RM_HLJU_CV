@@ -170,6 +170,7 @@ vector<Point_t> getBoard(Mat img, AimColor color
 , const string& onnxPath
 #endif
 ){
+    vector<Point_t> result;
 #if SVM_Mode == ON && DNN_Mode == OFF
     Ptr<cv::ml::SVM> svm;
     // 读取SVM模型
@@ -195,10 +196,18 @@ vector<Point_t> getBoard(Mat img, AimColor color
     #if ONNX == ON && TensorRT == OFF
         // ONNX模型
         cv::dnn::Net net = cv::dnn::readNetFromONNX(onnxPath);
-        net.setInput(img);
+        cv::Size size = cv::Size(1024, 1024);
+        // 设置输入尺寸
+        net.setInput(cv::dnn::blobFromImage(img, 1.0, size, cv::Scalar(), true, false));
         std::vector<cv::String> output_layer_names = net.getUnconnectedOutLayersNames();
         Mat output;
         net.forward(output, output_layer_names);
+        // 解析输出
+        for (int i = 0; i < output.rows; i++){
+            float x = output.at<float>(i, 0);
+            float y = output.at<float>(i, 1);
+            result.push_back(new TPoint(x, y));
+        }
 
     #elif ONNX == OFF && TensorRT == ON
         // TensorRT模型
@@ -215,4 +224,5 @@ vector<Point_t> getBoard(Mat img, AimColor color
     logger.out("Error: 模式未开启");
     return NULL;
 #endif
+    return result;
 }
