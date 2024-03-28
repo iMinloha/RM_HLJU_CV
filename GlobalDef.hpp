@@ -12,6 +12,8 @@
 
 // 调试模式(值为1时输出信息)
 #define DEBUG ON
+// 串口通信设备
+#define SerialPort "/dev/ttyS0"
 // --------------[二选一为ON]---------------
 // 双目相机
 #define DoubleEye OFF

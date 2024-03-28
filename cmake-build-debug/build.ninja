@@ -51,35 +51,35 @@ build cmake_object_order_depends_target_RMArmor: phony || CMakeFiles/RMArmor.dir
 
 build CMakeFiles/RMArmor.dir/main.cpp.obj: CXX_COMPILER__RMArmor_unscanned_Debug D$:/C++/RMArmor/main.cpp || cmake_object_order_depends_target_RMArmor
   DEP_FILE = CMakeFiles\RMArmor.dir\main.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -isystem E:/opencv-4.9.0/build/install/include
   OBJECT_DIR = CMakeFiles\RMArmor.dir
   OBJECT_FILE_DIR = CMakeFiles\RMArmor.dir
 
 build CMakeFiles/RMArmor.dir/GlobalType/Camera.cpp.obj: CXX_COMPILER__RMArmor_unscanned_Debug D$:/C++/RMArmor/GlobalType/Camera.cpp || cmake_object_order_depends_target_RMArmor
   DEP_FILE = CMakeFiles\RMArmor.dir\GlobalType\Camera.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -isystem E:/opencv-4.9.0/build/install/include
   OBJECT_DIR = CMakeFiles\RMArmor.dir
   OBJECT_FILE_DIR = CMakeFiles\RMArmor.dir\GlobalType
 
 build CMakeFiles/RMArmor.dir/GlobalType/Type.cpp.obj: CXX_COMPILER__RMArmor_unscanned_Debug D$:/C++/RMArmor/GlobalType/Type.cpp || cmake_object_order_depends_target_RMArmor
   DEP_FILE = CMakeFiles\RMArmor.dir\GlobalType\Type.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -isystem E:/opencv-4.9.0/build/install/include
   OBJECT_DIR = CMakeFiles\RMArmor.dir
   OBJECT_FILE_DIR = CMakeFiles\RMArmor.dir\GlobalType
 
 build CMakeFiles/RMArmor.dir/Algorithm/AimLock.cpp.obj: CXX_COMPILER__RMArmor_unscanned_Debug D$:/C++/RMArmor/Algorithm/AimLock.cpp || cmake_object_order_depends_target_RMArmor
   DEP_FILE = CMakeFiles\RMArmor.dir\Algorithm\AimLock.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -isystem E:/opencv-4.9.0/build/install/include
   OBJECT_DIR = CMakeFiles\RMArmor.dir
   OBJECT_FILE_DIR = CMakeFiles\RMArmor.dir\Algorithm
 
 build CMakeFiles/RMArmor.dir/Algorithm/Operation.cpp.obj: CXX_COMPILER__RMArmor_unscanned_Debug D$:/C++/RMArmor/Algorithm/Operation.cpp || cmake_object_order_depends_target_RMArmor
   DEP_FILE = CMakeFiles\RMArmor.dir\Algorithm\Operation.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -isystem E:/opencv-4.9.0/build/install/include
   OBJECT_DIR = CMakeFiles\RMArmor.dir
   OBJECT_FILE_DIR = CMakeFiles\RMArmor.dir\Algorithm

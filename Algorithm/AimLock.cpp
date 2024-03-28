@@ -164,6 +164,8 @@ void generate_dataset(Mat &trainData, Mat &labels, string positive_dir, string n
     return;
 }
 
+enum YoloOutput{B1, B2, B3, B4, B5, BO, BS, R1, R2, R3, R4, R5, RO, RS};
+
 // 运行方法
 vector<Point_t> getBoard(Mat img, AimColor color
 #if ONNX == ON && TensorRT == OFF
@@ -202,12 +204,21 @@ vector<Point_t> getBoard(Mat img, AimColor color
         std::vector<cv::String> output_layer_names = net.getUnconnectedOutLayersNames();
         Mat output;
         net.forward(output, output_layer_names);
-        // 解析输出
+        // 输出NMS
         for (int i = 0; i < output.rows; i++){
             float x = output.at<float>(i, 0);
             float y = output.at<float>(i, 1);
-            result.push_back(new TPoint(x, y));
+            float w = output.at<float>(i, 2);
+            float h = output.at<float>(i, 3);
+            float score = output.at<float>(i, 4);
+            if (score > 0.5){
+                result.push_back(new TPoint(x, y));
+            }
         }
+        return result;
+
+
+
 
     #elif ONNX == OFF && TensorRT == ON
         // TensorRT模型

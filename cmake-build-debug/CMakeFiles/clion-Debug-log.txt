@@ -1,6 +1,6 @@
 "E:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=E:/Program Files/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S D:\C++\RMArmor -B D:\C++\RMArmor\cmake-build-debug
 Global type define OK!
 Algorithm define OK!
--- Configuring done (2.2s)
+-- Configuring done (1.6s)
 -- Generating done (0.0s)
 -- Build files have been written to: D:/C++/RMArmor/cmake-build-debug
