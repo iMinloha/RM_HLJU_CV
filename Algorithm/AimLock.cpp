@@ -205,20 +205,19 @@ vector<Point_t> getBoard(Mat img, AimColor color
         Mat output;
         net.forward(output, output_layer_names);
         // Êä³öNMS
+        Mat labels, scores, boxes;
         for (int i = 0; i < output.rows; i++){
-            float x = output.at<float>(i, 0);
-            float y = output.at<float>(i, 1);
-            float w = output.at<float>(i, 2);
-            float h = output.at<float>(i, 3);
-            float score = output.at<float>(i, 4);
-            if (score > 0.5){
-                result.push_back(new TPoint(x, y));
-            }
+            float* data = output.ptr<float>(i);
+            int index = (int)data[0];
+            float score = data[1];
+            float x = data[2] * img.cols;
+            float y = data[3] * img.rows;
+            float w = data[4] * img.cols;
+            float h = data[5] * img.rows;
+            Rect rect(x - w / 2, y - h / 2, w, h);
+            result.push_back(new TPoint(rect.x, rect.y));
         }
         return result;
-
-
-
 
     #elif ONNX == OFF && TensorRT == ON
         // TensorRTÄ£ÐÍ

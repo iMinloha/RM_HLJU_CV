@@ -24,6 +24,10 @@ int main() {
         for (auto &i : res){
             cout << i->x << " " << i->y << endl;
         }
+        // »­³öÄ¿±ê
+        for (auto &i : res){
+            circle(img, Point(i->x, i->y), 5, Scalar(0, 0, 255), 2);
+        }
         imshow("img", img); 
         if (waitKey(1) == 27){
             break;
