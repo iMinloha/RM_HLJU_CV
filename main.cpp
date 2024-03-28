@@ -24,7 +24,7 @@ int main() {
         for (auto &i : res){
             cout << i->x << " " << i->y << endl;
         }
-        imshow("img", img);
+        imshow("img", img); 
         if (waitKey(1) == 27){
             break;
         }
