@@ -6,6 +6,7 @@
 #include <iostream>
 #include "../GlobalDef.hpp"
 #include "../GlobalType/Type.hpp"
+#include "inference.hpp"
 
 using namespace cv;
 
@@ -21,7 +22,7 @@ void TrainSVM(string path);
 
 vector<Point_t> getBoard(Mat img, AimColor color
 #if ONNX == ON && TensorRT == OFF
-        , const string& onnxPath
+        , Inference inf
 #endif
 );
 

@@ -3,6 +3,13 @@
 4	1893	7326453755236396	CMakeFiles/RMArmor.dir/Algorithm/AimLock.cpp.obj	92b8257122496e77
 46	2552	7326432462815632	CMakeFiles/RMArmor.dir/GlobalType/Camera.cpp.obj	809ac6e5c4991546
 1894	2128	7326453757567953	RMArmor.exe	17151015c1e14375
-4	714	7333386938718934	build.ninja	f7b1602937d16dd9
+4	714	7333785683099650	build.ninja	f7b1602937d16dd9
 3	332	7321183354150592	CMakeFiles/RMArmor.dir/GlobalType/Type.cpp.obj	6eb36186eda57d9d
 74	1440	7326432451701476	CMakeFiles/RMArmor.dir/Algorithm/Operation.cpp.obj	7a65ade4ffd71057
+58	867	7333813050939000	CMakeFiles/RMArmor.dir/Algorithm/Operation.cpp.obj	340db41c9784c752
+43	3329	7333813075543147	CMakeFiles/RMArmor.dir/GlobalType/Type.cpp.obj	e3e258319f9daa3a
+3	3329	7333813075533148	CMakeFiles/RMArmor.dir/GlobalType/Camera.cpp.obj	77461a0b5889bca
+17	3474	7333813077024441	CMakeFiles/RMArmor.dir/main.cpp.obj	e07b7c78454e30af
+29	3637	7333813078663182	CMakeFiles/RMArmor.dir/Algorithm/inference.cpp.obj	48f83e257fb4f0da
+73	3772	7333813079977923	CMakeFiles/RMArmor.dir/Algorithm/AimLock.cpp.obj	e13632beb313aaef
+3772	4275	7333813085001305	RMArmor.exe	59048d0adcee5b5b

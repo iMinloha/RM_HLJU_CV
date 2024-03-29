@@ -13,6 +13,7 @@ add_subdirectory(GlobalType)
 add_subdirectory(Algorithm)
 # 添加构建项目
 add_executable(RMArmor main.cpp
-        GlobalDef.hpp ${GLOBAL_TYPE_SRC} ${ALGORITHM_SRC})
+        GlobalDef.hpp ${GLOBAL_TYPE_SRC} ${ALGORITHM_SRC}
+        Algorithm/inference.cpp)
 # 连接动态链接库
 target_link_libraries(RMArmor ${OpenCV_LIBS})

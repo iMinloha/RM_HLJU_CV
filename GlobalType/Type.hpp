@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include <opencv2/opencv.hpp>
 using namespace std;
 
 typedef struct TPoint{

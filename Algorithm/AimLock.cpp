@@ -1,4 +1,5 @@
 #include "AimLock.hpp"
+#include "inference.hpp"
 
 using namespace cv;
 
@@ -164,12 +165,10 @@ void generate_dataset(Mat &trainData, Mat &labels, string positive_dir, string n
     return;
 }
 
-enum YoloOutput{B1, B2, B3, B4, B5, BO, BS, R1, R2, R3, R4, R5, RO, RS};
-
 // 运行方法
 vector<Point_t> getBoard(Mat img, AimColor color
 #if ONNX == ON && TensorRT == OFF
-, const string& onnxPath
+, Inference inf
 #endif
 ){
     vector<Point_t> result;
@@ -196,27 +195,32 @@ vector<Point_t> getBoard(Mat img, AimColor color
 #elif CUDA == ON && CPU == OFF
     // 判断是ONNX还是TensorRT, 取决于配置文件
     #if ONNX == ON && TensorRT == OFF
-        // ONNX模型
-        cv::dnn::Net net = cv::dnn::readNetFromONNX(onnxPath);
-        cv::Size size = cv::Size(1024, 1024);
-        // 设置输入尺寸
-        net.setInput(cv::dnn::blobFromImage(img, 1.0, size, cv::Scalar(), true, false));
-        std::vector<cv::String> output_layer_names = net.getUnconnectedOutLayersNames();
-        Mat output;
-        net.forward(output, output_layer_names);
-        // 输出NMS
-        Mat labels, scores, boxes;
-        for (int i = 0; i < output.rows; i++){
-            float* data = output.ptr<float>(i);
-            int index = (int)data[0];
-            float score = data[1];
-            float x = data[2] * img.cols;
-            float y = data[3] * img.rows;
-            float w = data[4] * img.cols;
-            float h = data[5] * img.rows;
-            Rect rect(x - w / 2, y - h / 2, w, h);
-            result.push_back(new TPoint(rect.x, rect.y));
+        vector<Detection> detections = inf.runInference(img);
+        for (int i = 0; i < detections.size(); i++){
+            Detection detection = detections[i];
+            result.push_back(new TPoint(detection.box.x, detection.box.y));
+
+            cv::Rect box = detection.box;
+            cv::Scalar color = detection.color;
+
+            // Detection box
+            cv::rectangle(img, box, color, 2);
+
+            // Detection box text
+            std::string classString = detection.className + ' ' + std::to_string(detection.confidence).substr(0, 4);
+            cv::Size textSize = cv::getTextSize(classString, cv::FONT_HERSHEY_DUPLEX, 1, 2, 0);
+            cv::Rect textBox(box.x, box.y - 40, textSize.width + 10, textSize.height + 20);
+            cv::rectangle(img, textBox, color, cv::FILLED);
+            cv::putText(img, classString, cv::Point(box.x + 5, box.y - 10), cv::FONT_HERSHEY_DUPLEX, 1, cv::Scalar(0, 0, 0), 2, 0);
         }
+
+        // 缩小图片
+        cv::resize(img, img, cv::Size(640, 640));
+
+        cv::imshow("Inference", img);
+        cv::waitKey(0);
+        cv::destroyAllWindows();
+
         return result;
 
     #elif ONNX == OFF && TensorRT == ON
