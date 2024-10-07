@@ -11,10 +11,6 @@ typedef void (*Func)(void* args, void* result);
 template <typename T, typename R>
 void operation(Func func, T *args, R *result);
 
-void ReceiveData(void* result, int length);
-
-void SendData(void* args, int length);
-
 
 
 

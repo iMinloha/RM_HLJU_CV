@@ -166,7 +166,7 @@ void generate_dataset(Mat &trainData, Mat &labels, string positive_dir, string n
 }
 
 // 运行方法
-vector<Point_t> getBoard(Mat img, AimColor color
+vector<Point_t> getBoard(Mat img
 #if ONNX == ON && TensorRT == OFF
 , Inference inf
 #endif
@@ -195,31 +195,23 @@ vector<Point_t> getBoard(Mat img, AimColor color
 #elif CUDA == ON && CPU == OFF
     // 判断是ONNX还是TensorRT, 取决于配置文件
     #if ONNX == ON && TensorRT == OFF
+        // img整形为640*640
+        cv::resize(img, img, cv::Size(640, 640));
         vector<Detection> detections = inf.runInference(img);
-        for (int i = 0; i < detections.size(); i++){
-            Detection detection = detections[i];
-            result.push_back(new TPoint(detection.box.x, detection.box.y));
-
-            cv::Rect box = detection.box;
-            cv::Scalar color = detection.color;
-
-            // Detection box
-            cv::rectangle(img, box, color, 2);
-
-            // Detection box text
-            std::string classString = detection.className + ' ' + std::to_string(detection.confidence).substr(0, 4);
-            cv::Size textSize = cv::getTextSize(classString, cv::FONT_HERSHEY_DUPLEX, 1, 2, 0);
-            cv::Rect textBox(box.x, box.y - 40, textSize.width + 10, textSize.height + 20);
-            cv::rectangle(img, textBox, color, cv::FILLED);
-            cv::putText(img, classString, cv::Point(box.x + 5, box.y - 10), cv::FONT_HERSHEY_DUPLEX, 1, cv::Scalar(0, 0, 0), 2, 0);
+        // yoloV8 输出的数据是detection
+        // 绘制res
+        for (auto i : detections){
+            // 画出结果
+            cv::rectangle(img, i.box, i.color, 2);
+            cv::putText(img, i.className, cv::Point(i.box.x, i.box.y - 10), cv::FONT_HERSHEY_SIMPLEX, 0.5, i.color, 2);
+            result.push_back(new TPoint(i.box.x, i.box.y));
         }
+
 
         // 缩小图片
         cv::resize(img, img, cv::Size(640, 640));
 
         cv::imshow("Inference", img);
-        cv::waitKey(0);
-        cv::destroyAllWindows();
 
         return result;
 

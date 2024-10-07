@@ -33,13 +33,16 @@
 // CPU的多线程
 #define MultiThread ON
 // 目标识别方式(对应CPU和GPU)
-#define SVM_Mode OFF
-#define DNN_Mode ON
+#define SVM_Mode OFF // 开启CPU就一定要开启SVM
+#define DNN_Mode ON // 开启GPU就一定要开启DNN(注意，这里是指神经网络，我没有写使用cuda加速的传统视觉算法)
 // 索敌颜色
 enum AimColor{
     Red,
     Blue
 };
 
+// 敌人颜色
+// 用于每次分组的时候，不同颜色的敌人分开
+#define EnemyColor Red
 
 #endif

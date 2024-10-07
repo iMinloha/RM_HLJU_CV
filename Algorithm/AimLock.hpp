@@ -20,7 +20,7 @@ void NMS(vector<Rect> &srcRect, float thresh);
 
 void TrainSVM(string path);
 
-vector<Point_t> getBoard(Mat img, AimColor color
+vector<Point_t> getBoard(Mat img
 #if ONNX == ON && TensorRT == OFF
         , Inference inf
 #endif
